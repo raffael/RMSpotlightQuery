@@ -1,6 +1,5 @@
 //
 //  RMSpotlightQuery.m
-//  AppSales
 //
 //  Created by Raffael Hannemann on 16.01.13.
 //  Copyright (c) 2013 raffael.me. All rights reserved.

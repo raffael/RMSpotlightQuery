@@ -26,10 +26,15 @@
 - (void) spotlightQuery: (RMSpotlightQuery *) query didFinishWithResult: (NSArray *) results;
 @end
 
+/** Objects of this class are NSThread subclasses to query the mdfind command line tool, a tool to query the Spotlight index.*/
 @interface RMSpotlightQuery : NSThread
 
-/** Convenience methods to quickly generate instances */
+/** Convenience methods to quickly generate instances. */
 + (instancetype) query;
+
+/** Convenience methods to quickly generate instances.
+ @param delegate The delegate to notify once the query results are available.
+ */
 + (instancetype) queryWithDelegate: (id<RMSpotlightQueryDelegate>) delegate;
 
 /** Runs a simple query using a needle to search for.
@@ -48,8 +53,13 @@
  */
 - (void) query: (NSString *) needle withOptions: (NSArray *) options;
 
+/** The needle is the string to search for. */
 @property (retain,readonly) NSString *needle;
+
+/** The options array is a set of options. See the mdfind docs for more information. */
 @property (retain) NSArray *options;
+
+/** The delegate will be notified once the query results are available. */
 @property (retain) id<RMSpotlightQueryDelegate> delegate;
 
 @end
