@@ -42,41 +42,41 @@
 - (void) main {
 
 	/**
-	 * Docs for the mdfind tool can be find on
+	 * Docs for the mdfind tool can be found on
 	 * https://developer.apple.com/library/mac/#documentation/Darwin/Reference/ManPages/man1/mdfind.1.html
 	 */
-	
+
 	NSTask *myTask = [[NSTask alloc] init];
-    NSData *inData = nil;
-    NSPipe *myPipe = [NSPipe pipe];
-    NSFileHandle *myHandle = [myPipe fileHandleForReading];
+	NSData *inData = nil;
+	NSPipe *myPipe = [NSPipe pipe];
+	NSFileHandle *myHandle = [myPipe fileHandleForReading];
 
-    NSString *output;
+	NSString *output;
 
-	// app to launch
-    [myTask setStandardOutput: myPipe];
-    [myTask setLaunchPath:@"/usr/bin/mdfind"];
+	// Define the process ... 
+	[myTask setStandardOutput: myPipe];
+	[myTask setLaunchPath:@"/usr/bin/mdfind"];
 
-	// app arguments
+	// ... with arguments
 	NSMutableArray *args = [NSMutableArray array];
 	if (_options) [args addObjectsFromArray: _options];
 	if (_needle && ![_needle isEqualToString:@""]) [args addObject:_needle];
 	[myTask setArguments: args];
 
-	// fire
-    [myTask launch];
+	// Start the process
+	[myTask launch];
 
-	// handle output
-    inData = [myHandle readDataToEndOfFile];
-    output = [[NSString alloc] initWithData: [inData subdataWithRange:NSMakeRange(0, [inData length])]
+	// And handle the output
+	inData = [myHandle readDataToEndOfFile];
+	output = [[NSString alloc] initWithData: [inData subdataWithRange:NSMakeRange(0, [inData length])]
 								   encoding: NSASCIIStringEncoding];
 
-	// remove last results which is an empty line
+	// Remove last results which is always an empty line
 	NSMutableArray *array = [NSMutableArray arrayWithArray:[output componentsSeparatedByString:@"\n"]];
 	if ([array.lastObject isEqualToString:@""])
 		[array removeObjectAtIndex:array.count-1];
 
-	// delegate result(s)
+	// Delegate the result(s)
 	if ([self.delegate respondsToSelector:@selector(spotlightQuery:didFinishWithResult:)])
 		[self.delegate spotlightQuery:self didFinishWithResult:array];
 }
