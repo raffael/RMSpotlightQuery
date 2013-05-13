@@ -17,6 +17,17 @@ Objects of this class are NSThread subclasses to query the mdfind command line t
 	RMSpotlightQuery *query = [RMSpotlightQuery queryWithDelegate:self];
 	[query query:@"image.jpg" withOptions:@[/*...*/]];
 
+## Contact
+
+* Raffael Hannemann
+* [@raffael-me](http://www.twitter.com/raffae-me/)
+* http://www.raffael.me/
+
 ## License
 
+Copyright (c) 2013 Raffael Hannemann
 Under BSD License.
+
+## Want more?
+
+Follow [@raffael-me](http://www.twitter.com/raffae-me/) for similar releases.
