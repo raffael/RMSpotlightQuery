@@ -54,15 +54,15 @@
 - (void) query: (NSString *) needle withOptions: (NSArray *) options;
 
 /** The needle is the string to search for. */
-@property (retain,readonly) NSString *needle;
+@property (strong,readonly) NSString *needle;
 
 /** The options array is a set of options. See the mdfind docs for more information. */
-@property (retain) NSArray *options;
+@property (copy) NSArray *options;
 
 /** A Tag string that can be set to identify the query, if not identified by reference. */
-@property (retain) NSString *tag;
+@property (copy) NSString *tag;
 
 /** The delegate will be notified once the query results are available. */
-@property (retain) id<RMSpotlightQueryDelegate> delegate;
+@property (weak) id<RMSpotlightQueryDelegate> delegate;
 
 @end
